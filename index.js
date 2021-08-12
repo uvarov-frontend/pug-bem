@@ -1,9 +1,3 @@
-let reg_block = /^[a-zA-Z]/,
-    reg_elem = /^\_/,
-    reg_mod = /^\-/,
-    repl_elem = /^\_\_?/,
-    repl_mod = /^\-\-?/;
-
 function pugbem(tokens) {
     'use strict';
 
@@ -17,8 +11,13 @@ function pugbem(tokens) {
         element_val,
         modifier_line,
         prefix_block,
+        reg_block = /^[a-zA-Z]/,
+        reg_elem = this.e || /^\_\_/,
+        reg_mod = this.m || /^\_/,
+        repl_elem = this.e || /^\_\_?/,
+        repl_mod = this.m || /^\_?/,
         separator_elem = this.e || '__',
-        separator_mod = this.m || '--';
+        separator_mod = this.m || '_';
 
     if(this.b === true) prefix_block = 'b-';
     else if (this.b) prefix_block = this.b;
@@ -33,16 +32,16 @@ function pugbem(tokens) {
     });
 
     tokens.forEach(token => {
-        
+
         if (token.type === 'tag') {
 
-            tag_line = token.loc.start.line; 
+            tag_line = token.loc.start.line;
             tag_column = token.loc.start.column;
 
         } else if (token.type === 'class') {
 
             class_line = token.loc.start.line;
-            
+
             if (class_line === tag_line) class_column = tag_column;
             else class_column = token.loc.start.column;
 
@@ -73,7 +72,7 @@ function pugbem(tokens) {
 
                 if (!blocks.length) return;
                 if (class_line === element_line) return;
-                
+
                 element_line = class_line;
 
                 // ----------- the mix -----------
