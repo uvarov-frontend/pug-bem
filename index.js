@@ -12,10 +12,10 @@ function pugbem(tokens) {
         modifier_line,
         prefix_block,
         reg_block = /^[a-zA-Z]/,
-        reg_elem = this.e || /^\_\_/,
-        reg_mod = this.m || /^\_/,
-        repl_elem = this.e || /^\_\_?/,
-        repl_mod = this.m || /^\_?/,
+        reg_elem = /^\_\_/,
+        reg_mod = /^\_/,
+        repl_elem = /^\_\_?/,
+        repl_mod = /^\_?/,
         separator_elem = this.e || '__',
         separator_mod = this.m || '_';
 
